@@ -15,11 +15,13 @@ jobs:
           username: ketan3108
           password: Ketan31)*  # context / project UI env-var reference
     steps:
-      - run: docker-compose run app sh -c "python manage test"
+      - run: docker-compose run app sh -c "python manage.py test"
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
