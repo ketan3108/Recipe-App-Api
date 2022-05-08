@@ -9,14 +9,13 @@ jobs:
     steps:
       - run: pip install docker-compose
   test:
+    working_directory: ~/app
     docker:
       - image: cimg/python:3.9.0
         auth:
           username: ketan3108
           password: Ketan31)*  # context / project UI env-var reference
     steps:
-      volumes:
-        - ./app:/app
       - run: docker-compose run app sh -c "python manage.py test"
 
 # Orchestrate our job run sequence
