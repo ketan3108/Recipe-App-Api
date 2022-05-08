@@ -9,7 +9,6 @@ jobs:
     steps:
       - run: pip install docker-compose
   test:
-    working_directory: ~/app
     docker:
       - image: cimg/python:3.9.0
         auth:
