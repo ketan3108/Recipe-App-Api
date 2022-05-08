@@ -1,13 +1,25 @@
 version: 2.1
-
-# Define the jobs we want to run for this project
 jobs:
   build:
     docker:
       - image: cimg/python:3.9.0
-      auth:
+        auth:
           username: ketan3108
-          password: Ketan31)*
+          password: Ketan31)*  # context / project UI env-var reference
     steps:
-      - checkout
-      - run: echo "this is the build job"
+      - run: pip install docker-compose
+  test:
+    docker:
+      - image: cimg/python:3.9.0
+        auth:
+          username: ketan3108
+          password: Ketan31)*  # context / project UI env-var reference
+    steps:
+      - run: docker-compose run app sh -c "python manage.py test"
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test
